@@ -18,10 +18,13 @@ namespace DictionaryClient
         {
             InitializeComponent();
         }
-
-        private void Form1_Load(object sender, EventArgs e)
+        
+        private void button1_Click(object sender, EventArgs e)
         {
-            Client.Connect("", new MyMessage { Action = ActionType.Add, Key = "ioio", Value = "32w0"}, textBox1);
+            var m = Client.Connect("", new MyMessage { Action = ActionType.Add, Key = textBox1.Text, Value = textBox2.Text });
+            toolStripStatusLabel1.Text = m.Result;
+            textBox1.Clear();
+            textBox2.Clear();
         }
     }
 }

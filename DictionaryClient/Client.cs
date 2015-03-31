@@ -14,7 +14,7 @@ namespace DictionaryClient
 {
     public class Client
     {
-        public static void Connect(String server, MyMessage message, TextBox tb)
+        public static MyMessage Connect(String server, MyMessage message)
         {
             try
             {
@@ -25,41 +25,38 @@ namespace DictionaryClient
                 Int32 port = 13000;
                 TcpClient client = new TcpClient(server, port);
 
-                // Translate the passed message into ASCII and store it as a Byte array.
-                //Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
 
-                var data = new byte[512];
-                data = SerializeToStream(message).ToArray();
+                var data = SerializeToStream(message).ToArray();
 
                 // Get a client stream for reading and writing. 
-                //  Stream stream = client.GetStream();
 
                 NetworkStream stream = client.GetStream();
+
+                //send length of query
+                int sendlength = data.Length;
+                stream.Write(BitConverter.GetBytes(sendlength), 0, sizeof(int));
 
                 // Send the message to the connected TcpServer. 
                 stream.Write(data, 0, data.Length);
 
-                tb.Text += "Sent: " + message.Key + Environment.NewLine;
-                //Console.WriteLine();
-
-                // Receive the TcpServer.response. 
+                // Receive the TcpServer.response.
+ 
+                //buffer to store the response length
+                byte[] reslength = new byte[4];
+                stream.Read(reslength, 0, sizeof(int));
 
                 // Buffer to store the response bytes.
-                data = new Byte[512];
-
-                // String to store the response ASCII representation.
-                String responseData = String.Empty;
+                data = new Byte[BitConverter.ToInt32(reslength, 0)];
 
                 // Read the first batch of the TcpServer response bytes.
-                Int32 bytes = stream.Read(data, 0, data.Length);
-                //responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                stream.Read(data, 0, data.Length);
+
                 MyMessage m = (MyMessage) DeserializeFromStream(new MemoryStream(data));
-                tb.Text += "Received: " + m.Key + " " + m.Value + Environment.NewLine;
-                //Console.WriteLine("Received: {0}", m.Key);
 
                 // Close everything.
                 stream.Close();
                 client.Close();
+                return m;
             }
             catch (ArgumentNullException e)
             {
@@ -74,6 +71,7 @@ namespace DictionaryClient
 
             //Console.WriteLine("\n Press Enter to continue...");
             //Console.Read();
+            return null;
         }
 
         /// <summary>
