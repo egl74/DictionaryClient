@@ -26,5 +26,25 @@ namespace DictionaryClient
             textBox1.Clear();
             textBox2.Clear();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var m = Client.Connect("", new MyMessage { Action = ActionType.Edit, Key = textBox4.Text, Value = textBox3.Text });
+            toolStripStatusLabel1.Text = m.Result;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var m = Client.Connect("", new MyMessage { Action = ActionType.Remove, Key = textBox6.Text});
+            toolStripStatusLabel1.Text = m.Result;
+            textBox6.Clear();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var m = Client.Connect("", new MyMessage { Action = ActionType.Remove, Key = textBox7.Text });
+            toolStripStatusLabel1.Text = m.Result;
+            textBox5.Text = m.Value;
+        }
     }
 }
