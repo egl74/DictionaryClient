@@ -59,11 +59,7 @@ namespace DictionaryClient
                 client.Close();
                 return m;
             }
-            catch (ArgumentNullException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            catch (SocketException e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
@@ -116,11 +112,7 @@ namespace DictionaryClient
                 client.Close();
                 return m;
             }
-            catch (ArgumentNullException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            catch (SocketException e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }

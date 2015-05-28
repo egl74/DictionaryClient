@@ -271,6 +271,7 @@
             this.textBox8.Location = new System.Drawing.Point(25, 85);
             this.textBox8.Multiline = true;
             this.textBox8.Name = "textBox8";
+            this.textBox8.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox8.Size = new System.Drawing.Size(336, 120);
             this.textBox8.TabIndex = 1;
             // 
@@ -314,6 +315,7 @@
             this.textBox10.Location = new System.Drawing.Point(54, 110);
             this.textBox10.Multiline = true;
             this.textBox10.Name = "textBox10";
+            this.textBox10.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox10.Size = new System.Drawing.Size(275, 119);
             this.textBox10.TabIndex = 3;
             // 
@@ -337,7 +339,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "Form1";
+            this.Text = "Dictionary";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
